@@ -1,8 +1,10 @@
 package com.checklistback.checklist.security.jwt;
 
+import java.util.Base64;
 import java.util.Date;
 
 import com.checklistback.checklist.security.services.UserDetailsImpl;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
+
+import javax.crypto.SecretKey;
+
+import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
 public class JwtUtils {
@@ -21,12 +27,13 @@ public class JwtUtils {
     @Value("${checklist.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(Authentication authentication) {
+    @NotNull
+    public String generateJwtToken(@NotNull Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(jwtSecret.getBytes(US_ASCII)))
                 .compact();
     }
 
