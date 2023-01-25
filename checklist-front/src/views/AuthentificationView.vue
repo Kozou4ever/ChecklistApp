@@ -3,7 +3,7 @@ import LoginForm from '../components/Forms/LoginForm.vue';
 </script>
 
 <template>
-    <div class="text-black w-full h-full min-h-screen">
+    <div class="text-black flex justify-center w-full h-full min-h-screen">
         <LoginForm />
     </div>
 </template>
