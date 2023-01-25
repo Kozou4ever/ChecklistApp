@@ -2,6 +2,11 @@
 import EditIcon from '../Icons/EditIcon.vue'
 import DeleteIcon from '../Icons/DeleteIcon.vue';
 import ChevronIcon from '../Icons/ChevronIcon.vue';
+import { ref } from 'vue';
+
+const isDesc = ref(false);
+
+const showDesc = () => isDesc.value = !isDesc.value;
 </script>
 
 <template>
@@ -18,8 +23,11 @@ import ChevronIcon from '../Icons/ChevronIcon.vue';
         <div class="flex flex-row gap-2">
           <EditIcon />
           <DeleteIcon />
-          <ChevronIcon />
+          <ChevronIcon @click="showDesc()" :class="isDesc ? 'rotate-180' : ''"/>
         </div>
+      </div>
+      <div class="transition ease-out duration-300 mt-2" v-if="isDesc">
+        <p class="text-sm text-slate-600 indent-5 ">Une description très bien détaillée</p>
       </div>
     </div>
 </template>
