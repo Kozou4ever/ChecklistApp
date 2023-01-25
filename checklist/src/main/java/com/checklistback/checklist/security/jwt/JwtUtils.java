@@ -4,7 +4,6 @@ import java.util.Base64;
 import java.util.Date;
 
 import com.checklistback.checklist.security.services.UserDetailsImpl;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +26,7 @@ public class JwtUtils {
     @Value("${checklist.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    @NotNull
-    public String generateJwtToken(@NotNull Authentication authentication) {
+    public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
