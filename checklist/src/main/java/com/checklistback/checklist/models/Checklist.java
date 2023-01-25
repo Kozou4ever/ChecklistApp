@@ -1,5 +1,6 @@
 package com.checklistback.checklist.models;
 
+import com.checklistback.checklist.security.services.UserDetailsImpl;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,14 +18,13 @@ public class Checklist {
     @Size(max = 255)
     private String name;
 
-    @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
-    private User user;
+    private String user;
 
     public Checklist() {
     }
 
-    public Checklist(String name, User user) {
+    public Checklist(String name, String user) {
         this.name = name;
         this.user = user;
     }
@@ -45,11 +45,11 @@ public class Checklist {
         this.name = name;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 }
