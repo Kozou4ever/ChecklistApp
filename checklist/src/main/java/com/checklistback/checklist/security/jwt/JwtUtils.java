@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
 
-import javax.crypto.SecretKey;
-
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
@@ -31,7 +29,8 @@ public class JwtUtils {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(jwtSecret.getBytes(US_ASCII)))
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(jwtSecret.getBytes(US_ASCII)))
                 .compact();
     }
 
