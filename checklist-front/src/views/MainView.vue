@@ -7,22 +7,35 @@ import TodoCreateModal from '../components/Modals/TodoCreateModal.vue';
 
 import { useModalStore } from '../store/modalStore';
 import { storeToRefs } from 'pinia';
+import LogoutIcon from '@/components/Icons/LogoutIcon.vue';
+import { useAuthStore } from '@/store/authStore';
 
-const store = useModalStore();
-const { checklistCreate, todoCreate } = storeToRefs(store);
-const { toggleChecklistCreateModal, toggleTodoCreateModal } = store;
+const modalStore = useModalStore();
+const authStore = useAuthStore();
+
+const { checklistCreate, todoCreate } = storeToRefs(modalStore);
+let { isLogged } = storeToRefs(authStore);
+
+const { toggleChecklistCreateModal, toggleTodoCreateModal } = modalStore;
+
+const changeLogState = () => isLogged.value = !isLogged.value
 
 </script>
 
 <template>
     <div class="min-h-screen flex" :class="checklistCreate || todoCreate ? 'blur' : ''">
-        <div class="w-56 flex flex-col border-r border-black p-4">
-            <AddButton @click="toggleChecklistCreateModal()" class="self-end" />
-            <div class="space-y-2 flex flex-col mt-6">
-                <ChecklistButton name="Checklist1" />
-                <ChecklistButton name="Checklist1" />
-                <ChecklistButton name="Checklist1" />
-                <ChecklistButton name="Checklist1" />
+        <div class="w-56 flex flex-col justify-between border-r border-black p-4">
+            <div class="flex flex-col">
+                <AddButton @click="toggleChecklistCreateModal()" class="self-end" />
+                <div class="space-y-2 flex flex-col mt-6">
+                    <ChecklistButton name="Checklist1" />
+                    <ChecklistButton name="Checklist1" />
+                    <ChecklistButton name="Checklist1" />
+                    <ChecklistButton name="Checklist1" />
+                </div>
+            </div>
+            <div class="flex">
+                <button @click="changeLogState()"><LogoutIcon class="self-end" /></button>
             </div>
         </div>
 
@@ -35,8 +48,6 @@ const { toggleChecklistCreateModal, toggleTodoCreateModal } = store;
             <CheckTodo />
             <CheckTodo />
             <CheckTodo />
-
-
         </main>
     </div>
     <ChecklistCreateModal />
