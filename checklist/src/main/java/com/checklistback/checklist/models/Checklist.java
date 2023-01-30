@@ -18,13 +18,14 @@ public class Checklist {
     @Size(max = 255)
     private String name;
 
+    @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
-    private String user;
+    private User user;
 
     public Checklist() {
     }
 
-    public Checklist(String name, String user) {
+    public Checklist(String name, User user) {
         this.name = name;
         this.user = user;
     }
@@ -45,11 +46,11 @@ public class Checklist {
         this.name = name;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

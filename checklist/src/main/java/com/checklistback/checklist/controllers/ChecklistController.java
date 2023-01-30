@@ -1,6 +1,8 @@
 package com.checklistback.checklist.controllers;
 
 import com.checklistback.checklist.models.Checklist;
+import com.checklistback.checklist.models.User;
+import com.checklistback.checklist.payload.response.ChecklistResponse;
 import com.checklistback.checklist.payload.response.JwtResponse;
 import com.checklistback.checklist.payload.response.MessageResponse;
 import com.checklistback.checklist.repository.ChecklistRepository;
@@ -22,11 +24,15 @@ public class ChecklistController {
     @Autowired
     ChecklistRepository checklistRepository;
 
+    @GetMapping()
+    public ResponseEntity<?> getChecklists(){
+        return null;
+    }
+    //TODO return checklistDetails... 
+
     @PostMapping("/create")
-    public ResponseEntity<?> createChecklist(@Valid @RequestBody String title) {
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = loggedInUser.getName();
-        checklistRepository.save(new Checklist(title, username));
+    public ResponseEntity<?> createChecklist(@Valid @RequestBody Checklist checklist) {
+        checklistRepository.save(checklist);
         return ResponseEntity.ok(new MessageResponse("Checklist created successfully!"));
     }
 }
