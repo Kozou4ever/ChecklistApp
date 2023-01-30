@@ -1,12 +1,10 @@
 package com.checklistback.checklist.repository;
 
 import com.checklistback.checklist.models.Checklist;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
+import org.springframework.data.repository.CrudRepository;
 
 @Repository
-public interface ChecklistRepository extends JpaRepository<Checklist, Long> {
+public interface ChecklistRepository extends CrudRepository<Checklist, Long> {
 
 }
