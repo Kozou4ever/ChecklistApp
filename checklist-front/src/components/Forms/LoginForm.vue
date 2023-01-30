@@ -39,7 +39,7 @@ const login = () => {
 
 <template>
 
-    <form v-on:submit.prevent="login" class="py-24 w-96">
+    <form v-on:submit.prevent="login" class="py-24 w-auto">
         <div v-if="badCredits" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
             <span class="font-medium">Oops!</span> L'utilisateur ou le mot de passe ne sont pas corrects :/
         </div>
